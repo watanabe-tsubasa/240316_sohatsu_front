@@ -9,12 +9,13 @@ import {
   DrawerTitle,
   // DrawerTrigger,
 } from "@/components/ui/drawer"
-import { ReactNode } from "react";
+import { ReactNode, SetStateAction } from "react";
 
 interface BaseDrowerProps {
   title: string;
   description: string;
   open: boolean;
+  setOpen: React.Dispatch<SetStateAction<boolean>>;
   childComponent: ReactNode;
 }
 
@@ -22,6 +23,7 @@ export const BaseDrower: React.FC<BaseDrowerProps> = ({
   title,
   description,
   open,
+  setOpen,
   childComponent
 }) => {
 
@@ -44,7 +46,7 @@ export const BaseDrower: React.FC<BaseDrowerProps> = ({
           <DrawerFooter>
             {/* <Button>Submit</Button> */}
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" onClick={() => {setOpen(!open)}}>Cancel</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>

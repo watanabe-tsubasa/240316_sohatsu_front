@@ -7,13 +7,16 @@ import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { TrashIcon } from "@radix-ui/react-icons"
 import { sampleData } from "@/utils/sampleData"
-import { useState } from "react"
+import { SetStateAction, useState } from "react"
 
 interface ProductCardProps {
   JAN: string;
+  JANList: string[];
+  setJANList: React.Dispatch<SetStateAction<string[]>>
+  index: number;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ JAN }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ JAN, JANList, index, setJANList }) => {
   const [count, setCount] = useState(1);
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newNumber = Number(e.target.value);
@@ -22,6 +25,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ JAN }) => {
   const selectedItem = sampleData.filter(elem => elem.JAN === JAN)[0]
   if (!selectedItem) {
     return <div></div>;
+  }
+  const handleDelete = () => {
+    const newJANList = JANList.filter((_, number) => number !== index)
+    setJANList(newJANList);
   }
   const imgPath = `https://www.aeonnetshop.com/img/goods/0105/00000000000000/PC/L/${selectedItem.JAN}.jpg`
   return (
@@ -34,7 +41,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ JAN }) => {
         />
         <CardTitle className="flex-grow">{selectedItem.name}</CardTitle>
         <div className="flex-col space-y-1">
-          <Button variant="outline" className="w-12"><TrashIcon /></Button>
+          <Button onClick={handleDelete} variant="outline" className="w-12"><TrashIcon /></Button>
           <Input onChange={handleInput} className="w-12" value={count} type="number"></Input>
         </div>
       </CardContent>

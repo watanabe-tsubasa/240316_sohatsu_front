@@ -5,7 +5,7 @@ const main = async () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "message": 'test'
+      "message": '4549414082166'
     })
   })
   const data = await res.text();
