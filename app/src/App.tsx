@@ -28,7 +28,6 @@ function App() {
        setOpen={setOpenModal}
        childComponent={
         <BarcodeReader
-         barcode={barcode}
          setBarcode={setBarcode}
          isScanning={openModal}
          setIsScanning={setOpenModal}

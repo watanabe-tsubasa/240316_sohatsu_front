@@ -3,14 +3,12 @@ import Webcam from 'react-webcam';
 import { BrowserMultiFormatReader } from '@zxing/library';
 
 interface BarcodeReaderProps {
-  barcode: string;
   setBarcode: React.Dispatch<React.SetStateAction<string>>;
   isScanning: boolean;
   setIsScanning: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const BarcodeReader: React.FC<BarcodeReaderProps> = ({
-  barcode,
   setBarcode,
   isScanning,
   setIsScanning
