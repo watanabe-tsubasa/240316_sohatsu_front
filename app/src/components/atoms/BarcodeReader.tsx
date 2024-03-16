@@ -51,14 +51,14 @@ export const BarcodeReader: React.FC<BarcodeReaderProps> = ({
   }, [isScanning, setBarcode, setIsScanning]);
 
   return (
-    <div>
+    <div className="w-full h-32 overflow-hidden"> {/* ここで高さと幅を設定 */}
       <Webcam
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         videoConstraints={{ facingMode: 'environment' }}
+        className="w-auto" // Webcamの幅を自動調整
       />
-      <p>バーコード: {barcode}</p>
     </div>
   );
 };
