@@ -5,13 +5,13 @@ export const P5Component = () => {
   const sketchRef = useRef<HTMLDivElement>(null);
   const gameStateRef = useRef('start');
   const [score, setScore] = useState(5);
-  const [price, setPrice] = useState(0);
+  const [clickCount, setClickCount] = useState(0);
   const barX = useRef(0);
-  const barWidth = 20;
-  const speed = 2;
-  const scanAreaWidth = 100;
+  const barWidth = 10;
+  const speed = 5;
+  const scanAreaWidth = 50;
   const windowHeight = 400;
-  const windowWidth = 600;
+  const windowWidth = 350;
 
   useEffect(() => {
     const sketch = (p: p5) => {
@@ -32,9 +32,9 @@ export const P5Component = () => {
       };
 
       const drawStartScreen = (p: p5) => {
-        p.textSize(180);
+        p.textSize(50);
         p.textAlign(p.CENTER, p.CENTER);
-        p.text('スタート', p.width / 2, p.height / 2);
+        p.text('挑戦する', p.width / 2, p.height / 2);
       };
 
       const drawGameScreen = (p: p5) => {
@@ -50,15 +50,21 @@ export const P5Component = () => {
         }
 
         p.fill(0);
-        p.textSize(34);
-        p.text(`残りお買い物点数: ${score}`, 220, 30);
-        p.text(`金額: ${price}`, 120, 100);
+        p.textSize(20);
+        p.text(`成功数: ${5-score} / 5`, 10, 30);
+ 
+        p.textSize(20);
+        p.text(`残り回数: ${10-clickCount}`, 10, 60);
 
         p.fill(100);
         p.rect(0, 300, p.width, 400);
-        p.textSize(74);
+        p.textSize(20);
         p.fill(0);
-        p.text(`バーが所定の位置に来たらクリック`, 300, 280);
+        p.text(`バーが所定の位置に来たらクリック`, 10, 280);
+
+        if (clickCount === 10) {
+          gameStateRef.current = 'start';
+        }
 
         if (score <= 0) {
           gameStateRef.current = 'gameOver';
@@ -66,19 +72,22 @@ export const P5Component = () => {
       };
 
       const drawGameOverScreen = (p: p5) => {
-        p.textSize(82);
+        p.textSize(20);
         p.textAlign(p.CENTER, p.CENTER);
-        p.text(`ありがとうございました。\nお会計${price}円です！`, p.width / 2, p.height / 2 - 20);
-        p.text('閉じる', (p.width * 3) / 4, (p.height * 3) / 4 + 20);
+        p.text('おめでとう！', (p.width) / 2, (p.height) / 2);
       };
 
       p.mouseClicked = () => {
+        if (p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height) {
+          setClickCount(prevCount => prevCount + 1);
+        }
         if (gameStateRef.current === 'start') {
+          setClickCount(0);
+          setScore(5);
           gameStateRef.current = 'game';
         } else if (gameStateRef.current === 'gameOver') {
           gameStateRef.current = 'start';
-          setScore(10);
-          setPrice(0);
+          setScore(5);
           barX.current = 0;
         } else if (gameStateRef.current === 'game') {
           checkScan(p);
@@ -88,7 +97,6 @@ export const P5Component = () => {
       const checkScan = (p: p5) => {
         if (barX.current > (p.width - scanAreaWidth) / 2 && barX.current < (p.width + scanAreaWidth) / 2) {
           setScore(score - 1);
-          setPrice(price + Math.floor(p.random(1, 20)) * 100 + 98);
         }
       };
     };
@@ -99,7 +107,7 @@ export const P5Component = () => {
         myP5.remove();
       };
     }
-  }, [score, price]); // 依存配列には score と price のみを含めます
+  }, [score, clickCount]); // 依存配列には score と price のみを含めます
 
   return <div ref={sketchRef}></div>;
 };
