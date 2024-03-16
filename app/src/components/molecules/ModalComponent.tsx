@@ -10,7 +10,7 @@ import {
   // AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 // import { Button } from "@/components/ui/button"
 
 interface ModalComponentProps {
