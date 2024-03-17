@@ -25,7 +25,7 @@ export const useToast = ({ status, title, message, func, label, duration=10000 }
         }
       },
     });
-  }, [title, status, message, func, label]);
+  }, [title, status, message, func, label, duration]);
 
   return showToast;
 }
