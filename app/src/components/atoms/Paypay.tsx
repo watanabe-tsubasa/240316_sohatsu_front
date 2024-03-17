@@ -30,7 +30,8 @@ export const Paypay = () => {
     status: 'error',
     title: 'Paypayでは',
     message: 'お支払いできません',
-    label: 'またくる'
+    label: 'もう一度レジに並ぶ',
+    duration: 5000
   });
   const handleClickIcon = () => {
     playAudio();

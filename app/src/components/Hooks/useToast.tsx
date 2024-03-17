@@ -7,12 +7,13 @@ interface useToastPropsType {
   message: string;
   func?: () => void;
   label: string;
+  duration?: number
 }
-export const useToast = ({ status, title, message, func, label }: useToastPropsType) => {
+export const useToast = ({ status, title, message, func, label, duration=10000 }: useToastPropsType) => {
   const showToast = useCallback(() => {
     toast[status](title, {
       description: message,
-      duration: 10000,
+      duration: duration,
       action: {
         label: label,
         onClick: () => {
