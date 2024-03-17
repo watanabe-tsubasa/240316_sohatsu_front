@@ -35,7 +35,15 @@ export const BodyComponent = () =>  {
     const data = await fetchWithScan(JAN)
     setToastMessage(data.message);
   }
-  const showToast = useToast({status: 'success', title:'お買い物情報', message: toastMessage});
+  const stopPurchase = () => {
+    setJANList(current => [...current].slice(0, current.length - 1))
+  }
+  const showToast = useToast({
+    status: 'success',
+    title:'お買い物情報',
+    message: toastMessage,
+    func: stopPurchase,
+    label: 'やめる'});
   useEffect(() => {
     console.log(toastMessage)
     if(toastMessage !== '') {

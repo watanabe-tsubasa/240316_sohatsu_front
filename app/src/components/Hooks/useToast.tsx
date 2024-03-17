@@ -5,18 +5,26 @@ interface useToastPropsType {
   status: 'success' | 'error' | 'info' | 'warning';
   title: string;
   message: string;
+  func?: () => void;
+  label: string;
 }
-
-export const useToast = ({ status, title, message }: useToastPropsType) => {
+export const useToast = ({ status, title, message, func, label }: useToastPropsType) => {
   const showToast = useCallback(() => {
     toast[status](title, {
       description: message,
+      duration: 10000,
       action: {
-        label: "Undo",
-        onClick: () => console.log("Undo"),
+        label: label,
+        onClick: () => {
+          if (func) {
+            func();
+          } else {
+            console.log('clicked')
+          }
+        }
       },
     });
-  }, [title, status, message]);
+  }, [title, status, message, func, label]);
 
   return showToast;
 }

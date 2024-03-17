@@ -26,7 +26,12 @@ export const Paypay = () => {
   //     audioRef.current.currentTime = 0; // 再生位置を先頭に戻す
   //   }
   // };
-  const showToast = useToast({status: 'error', title: 'Paypayでは', message: 'お支払いできません'});
+  const showToast = useToast({
+    status: 'error',
+    title: 'Paypayでは',
+    message: 'お支払いできません',
+    label: 'またくる'
+  });
   const handleClickIcon = () => {
     playAudio();
     setTimeout(() => {
