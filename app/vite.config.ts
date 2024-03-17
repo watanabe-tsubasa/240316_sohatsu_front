@@ -34,6 +34,7 @@ export default defineConfig({
         // }
       ],
       start_url: "index.html",
+      theme_color: '#ffffff',
       lang: "ja"
       }
     })
