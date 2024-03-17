@@ -15,6 +15,7 @@ export const BodyComponent = () =>  {
   const [open, setOpen] = useState(false);
   const [openPay, setOpenPay] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openTrapModal, setOpenTrapModal] = useState(false);
   const [barcode, setBarcode] = useState('');
   const [JANList, setJANList] = useState(['4549414082166', '4902102141253']);
   const [toastMessage, setToastMessage] = useState('');
@@ -24,7 +25,7 @@ export const BodyComponent = () =>  {
     const randomNumber = Math.random();
     console.log(randomNumber);
     if(randomNumber < 0.3) {
-      setOpen(!open);
+      setOpenTrapModal(!openTrapModal);
     } else {
       setOpenModal(true);
     }
@@ -86,14 +87,21 @@ export const BodyComponent = () =>  {
       <ModalComponent
         title="バーコードをスキャンしてください"
         open={openModal}
-        setOpen={setOpenModal}
         childComponent={
           <BarcodeReader
             setBarcode={setBarcode}
             isScanning={openModal}
             setIsScanning={setOpenModal}
+            open={openModal}
+             setOpen={setOpenModal}
           />}
-        />
+      />
+      <ModalComponent
+        title="スキャンゲーム"
+        description="商品買いたければ頑張れ"
+        open={openTrapModal}
+        childComponent={<P5Component open={openTrapModal} setOpen={setOpenTrapModal} />}
+      />
       <BaseDrower
         title="スキャンゲーム"
         description="商品買いたければ頑張れ"

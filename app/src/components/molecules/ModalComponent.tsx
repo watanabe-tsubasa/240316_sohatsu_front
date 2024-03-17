@@ -9,15 +9,13 @@ import {
   AlertDialogTitle,
   // AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Dispatch, ReactNode, SetStateAction } from "react";
-import { Button } from "../ui/button";
+import { ReactNode } from "react";
 // import { Button } from "@/components/ui/button"
 
 interface ModalComponentProps {
   title: string;
   description?: string;
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>
   childComponent?: ReactNode;
 }
 
@@ -25,7 +23,6 @@ export const ModalComponent: React.FC<ModalComponentProps> = ({
   title,
   description,
   open,
-  setOpen,
   childComponent
 }) => {
   return (
@@ -33,18 +30,20 @@ export const ModalComponent: React.FC<ModalComponentProps> = ({
       {/* <AlertDialogTrigger asChild>
         <Button variant="outline">Show Dialog</Button>
       </AlertDialogTrigger> */}
-      <AlertDialogContent>
+      <AlertDialogContent className="p-0 pt-4">
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="flex items-center justify-center">
-          {childComponent}
+        <div className="flex items-center justify-center w-full">
+          <div className="w-[350px]">
+            {childComponent}
+          </div>
         </div>
         <AlertDialogFooter>
           {/* <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction>Continue</AlertDialogAction> */}
-          <Button onClick={() => {setOpen(!open)}}>閉じる</Button>
+          {/* <Button onClick={() => {setOpen(!open)}}>閉じる</Button> */}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

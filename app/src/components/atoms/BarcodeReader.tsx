@@ -1,17 +1,22 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, SetStateAction } from 'react';
 import Webcam from 'react-webcam';
 import { BrowserMultiFormatReader } from '@zxing/library';
+import { Button } from '../ui/button';
 
 interface BarcodeReaderProps {
   setBarcode: React.Dispatch<React.SetStateAction<string>>;
   isScanning: boolean;
   setIsScanning: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: React.Dispatch<SetStateAction<boolean>>
 }
 
 export const BarcodeReader: React.FC<BarcodeReaderProps> = ({
   setBarcode,
   isScanning,
-  setIsScanning
+  setIsScanning,
+  open,
+  setOpen
 }) => {
   const webcamRef = useRef<Webcam>(null);
 
@@ -49,14 +54,17 @@ export const BarcodeReader: React.FC<BarcodeReaderProps> = ({
   }, [isScanning, setBarcode, setIsScanning]);
 
   return (
-    <div className='w-full h-32 overflow-hidden'>
-      <Webcam
-        className='w-auto'
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        videoConstraints={{ facingMode: 'environment' }}
-      />
+    <div className='flex flex-col space-y-4'>
+      <div className='w-full h-32 overflow-hidden'>
+        <Webcam
+          className='w-auto'
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          videoConstraints={{ facingMode: 'environment' }}
+        />
+      </div>
+      <Button className="flex-grow" onClick={() => {setOpen(!open)}}>閉じる</Button>
     </div>
   );
 };
