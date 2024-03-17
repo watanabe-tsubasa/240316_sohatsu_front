@@ -1,7 +1,14 @@
 import p5 from "p5";
-import { useEffect, useRef, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { Button } from "../ui/button";
 
-export const P5Component = () => {
+interface P5ComponentProps {
+  open: boolean;
+  setOpen: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export const P5Component: React.FC<P5ComponentProps> = ({ open, setOpen}) => {
+  const [isSuccess, setIsSuccess] = useState(false);
   const sketchRef = useRef<HTMLDivElement>(null);
   const gameStateRef = useRef('start');
   const [score, setScore] = useState(5);
@@ -89,6 +96,7 @@ export const P5Component = () => {
           gameStateRef.current = 'start';
           setScore(5);
           barX.current = 0;
+          setIsSuccess(true);
         } else if (gameStateRef.current === 'game') {
           checkScan(p);
         }
@@ -109,5 +117,11 @@ export const P5Component = () => {
     }
   }, [score, clickCount]); // 依存配列には score と price のみを含めます
 
-  return <div ref={sketchRef}></div>;
+  return (
+    <div className="flex flex-col justify-center space-y-2 ">
+      <div ref={sketchRef}></div>
+      <Button className="flex-grow" disabled={!isSuccess} onClick={() => {setOpen(!open)}}>閉じる</Button>
+    </div>
+
+    );
 };

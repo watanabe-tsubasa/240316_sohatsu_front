@@ -21,36 +21,41 @@ export const BodyComponent = () =>  {
 
   const handleBarcodeDetect = () => {
     setBarcode('');
-    setOpenModal(true);
-  }
-
+    const randomNumber = Math.random();
+    console.log(randomNumber);
+    if(randomNumber < 0.3) {
+      setOpen(!open);
+    } else {
+      setOpenModal(true);
+    }
+  };
   useEffect(() => {
     if(barcode !== '') {
       setJANList(current => [...current, barcode])
       handleFetchAndToast(barcode);
     }
-  }, [barcode])
-
+  }, [barcode]);
   const handleFetchAndToast = async (JAN: string) => {
     const data = await fetchWithScan(JAN)
     setToastMessage(data.message);
-  }
+  };
+  
   const stopPurchase = () => {
     setJANList(current => [...current].slice(0, current.length - 1))
-  }
+  };
   const showToast = useToast({
     status: 'success',
     title:'お買い物情報',
     message: toastMessage,
     func: stopPurchase,
-    label: 'やめる'});
+    label: 'やめる'
+  });
   useEffect(() => {
-    console.log(toastMessage)
     if(toastMessage !== '') {
       showToast();
       setToastMessage('');
     }
-  }, [toastMessage, showToast])
+  }, [toastMessage, showToast]);
   
   return (
     <div className="pt-20">
@@ -77,10 +82,6 @@ export const BodyComponent = () =>  {
           <CheckCircledIcon />
           <p>お支払い</p>
         </Button>        
-        {/* <Button className="flex w-32 h-12 space-x-2" onClick={handleFetchAndToast}>
-          <CheckCircledIcon />
-          <p>fetch</p>
-        </Button>         */}
       </div>
       <ModalComponent
         title="バーコードをスキャンしてください"
@@ -88,9 +89,9 @@ export const BodyComponent = () =>  {
         setOpen={setOpenModal}
         childComponent={
           <BarcodeReader
-          setBarcode={setBarcode}
-          isScanning={openModal}
-          setIsScanning={setOpenModal}
+            setBarcode={setBarcode}
+            isScanning={openModal}
+            setIsScanning={setOpenModal}
           />}
         />
       <BaseDrower
@@ -98,7 +99,7 @@ export const BodyComponent = () =>  {
         description="商品買いたければ頑張れ"
         open={open}
         setOpen={setOpen}
-        childComponent={<P5Component />}
+        childComponent={<P5Component open={open} setOpen={setOpen} />}
       /> 
       <BaseDrower
         title="お支払い"

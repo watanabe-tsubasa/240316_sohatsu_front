@@ -41,7 +41,6 @@ export const Paypay = () => {
 
   return (
     <div>
-      {/* audio 要素に ref を設定 */}
       <audio ref={audioRef} src="paypay.mp3" preload="auto"></audio>
       <img
        src='paypay.jpg'

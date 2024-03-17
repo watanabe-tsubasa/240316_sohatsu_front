@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import {
   Drawer,
-  DrawerClose,
+  // DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -28,7 +28,7 @@ export const BaseDrower: React.FC<BaseDrowerProps> = ({
 }) => {
 
   return (
-    <Drawer open={open}>
+    <Drawer open={open} onOpenChange={setOpen}>
       {/* <DrawerTrigger asChild>
         <Button variant="outline">Open Drawer</Button>
       </DrawerTrigger> */}
@@ -45,9 +45,12 @@ export const BaseDrower: React.FC<BaseDrowerProps> = ({
           </div>
           <DrawerFooter>
             {/* <Button>Submit</Button> */}
-            <DrawerClose asChild>
-              <Button variant="outline" onClick={() => {setOpen(!open)}}>Cancel</Button>
-            </DrawerClose>
+            {/* {isSuccess ?
+              <DrawerClose asChild>
+                <Button variant="outline" onClick={() => {setOpen(!open)}}>Cancel</Button>
+              </DrawerClose>
+              :<div></div>
+            } */}
           </DrawerFooter>
         </div>
       </DrawerContent>
